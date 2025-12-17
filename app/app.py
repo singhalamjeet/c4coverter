@@ -66,9 +66,6 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         with open(pdf_path, "wb") as f:
             f.write(content)
         
-        # Convert to DOCX using LibreOffice
-        docx_path = os.path.join(temp_dir, "input.docx")
-        
         # LibreOffice command for conversion
         command = [
             "soffice",
@@ -76,7 +73,7 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
             "--nologo",
             "--nofirststartwizard",
             "--convert-to",
-            "docx:MS Word 2007 XML",
+            "docx",
             "--outdir",
             temp_dir,
             pdf_path
@@ -89,25 +86,36 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
                 capture_output=True,
                 text=True,
                 timeout=CONVERT_TIMEOUT_SEC,
-                check=True
+                check=False  # Don't raise on non-zero exit
             )
+            
+            # Log the output for debugging
+            print(f"LibreOffice stdout: {result.stdout}")
+            print(f"LibreOffice stderr: {result.stderr}")
+            print(f"LibreOffice return code: {result.returncode}")
+            
         except subprocess.TimeoutExpired:
             raise HTTPException(
                 status_code=504,
                 detail=f"Conversion timeout after {CONVERT_TIMEOUT_SEC} seconds."
             )
-        except subprocess.CalledProcessError as e:
+        
+        # List all files in temp directory to find the output
+        temp_files = os.listdir(temp_dir)
+        print(f"Files in temp dir: {temp_files}")
+        
+        # Find the DOCX file (LibreOffice may name it differently)
+        docx_files = [f for f in temp_files if f.endswith('.docx')]
+        
+        if not docx_files:
+            # Provide detailed error with what we found
             raise HTTPException(
                 status_code=500,
-                detail=f"Conversion failed: {e.stderr or e.stdout or 'Unknown error'}"
+                detail=f"Conversion failed. LibreOffice output: {result.stdout or result.stderr}. Files created: {temp_files}"
             )
         
-        # Check if DOCX was created
-        if not os.path.exists(docx_path):
-            raise HTTPException(
-                status_code=500,
-                detail="Conversion completed but output file not found."
-            )
+        # Use the first DOCX file found
+        docx_path = os.path.join(temp_dir, docx_files[0])
         
         # Generate output filename
         original_name = file.filename.rsplit('.', 1)[0]
