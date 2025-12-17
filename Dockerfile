@@ -5,14 +5,10 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install LibreOffice, unoconv, and dependencies
+# Install system dependencies for pdf2docx
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libreoffice \
-    libreoffice-writer \
-    unoconv \
     fonts-dejavu \
     fonts-liberation \
-    fonts-urw-base35 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

@@ -1,5 +1,4 @@
 import os
-import subprocess
 import tempfile
 from pathlib import Path
 from typing import Optional
@@ -27,12 +26,12 @@ async def root():
 @app.post("/convert")
 async def convert_pdf_to_docx(file: UploadFile = File(...)):
     """
-    Convert uploaded PDF to DOCX format.
+    Convert uploaded PDF to DOCX format using pdf2docx library.
     
     Process:
     1. Validate file type and size
     2. Save uploaded PDF to temp file
-    3. Convert using LibreOffice headless
+    3. Convert using pdf2docx Python library
     4. Stream DOCX back to client
     5. Clean up temp files
     """
@@ -66,52 +65,29 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         with open(pdf_path, "wb") as f:
             f.write(content)
         
+        # Output DOCX path
+        docx_path = os.path.join(temp_dir, "output.docx")
         
-        # Use unoconv for conversion (better for headless environments)
-        command = [
-            "unoconv",
-            "-f", "docx",
-            "-o", temp_dir,
-            pdf_path
-        ]
-        
-        # Execute conversion with timeout
+        # Convert using pdf2docx library
         try:
-            result = subprocess.run(
-                command,
-                capture_output=True,
-                text=True,
-                timeout=CONVERT_TIMEOUT_SEC,
-                check=False  # Don't raise on non-zero exit
-            )
+            from pdf2docx import Converter
             
-            # Log the output for debugging
-            print(f"LibreOffice stdout: {result.stdout}")
-            print(f"LibreOffice stderr: {result.stderr}")
-            print(f"LibreOffice return code: {result.returncode}")
+            cv = Converter(pdf_path)
+            cv.convert(docx_path, start=0, end=None)
+            cv.close()
             
-        except subprocess.TimeoutExpired:
-            raise HTTPException(
-                status_code=504,
-                detail=f"Conversion timeout after {CONVERT_TIMEOUT_SEC} seconds."
-            )
-        
-        # List all files in temp directory to find the output
-        temp_files = os.listdir(temp_dir)
-        print(f"Files in temp dir: {temp_files}")
-        
-        # Find the DOCX file (LibreOffice may name it differently)
-        docx_files = [f for f in temp_files if f.endswith('.docx')]
-        
-        if not docx_files:
-            # Provide detailed error with what we found
+        except Exception as e:
             raise HTTPException(
                 status_code=500,
-                detail=f"Conversion failed. LibreOffice output: {result.stdout or result.stderr}. Files created: {temp_files}"
+                detail=f"Conversion failed: {str(e)}"
             )
         
-        # Use the first DOCX file found
-        docx_path = os.path.join(temp_dir, docx_files[0])
+        # Check if DOCX was created
+        if not os.path.exists(docx_path):
+            raise HTTPException(
+                status_code=500,
+                detail="Conversion completed but output file not found."
+            )
         
         # Generate output filename
         original_name = file.filename.rsplit('.', 1)[0]
@@ -122,7 +98,7 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
             path=docx_path,
             filename=output_filename,
             media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            background=None  # Keep file available during response
+            background=None
         )
     
     except HTTPException:
@@ -137,11 +113,7 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         )
     
     finally:
-        # Clean up temp files
-        # Note: FileResponse needs files to exist during response,
-        # so cleanup happens after response is sent in production
-        # For now, we'll let the OS clean /tmp periodically
-        # In production, consider using background tasks for cleanup
+        # Cleanup will happen when OS cleans /tmp
         pass
 
 
