@@ -24,6 +24,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY app/ ./app/
 
+# Copy SEO files
+COPY robots.txt sitemap.xml ./
+
 # Create non-root user for security and set proper permissions
 RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app && \
