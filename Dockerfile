@@ -5,13 +5,16 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install LibreOffice and fonts
+# Install LibreOffice and all required dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libreoffice-writer \
     libreoffice-core \
     libreoffice-common \
+    libreoffice-java-common \
+    default-jre-headless \
     fonts-dejavu \
     fonts-liberation \
+    fonts-urw-base35 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,9 +30,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY app/ ./app/
 
-# Create non-root user for security
+# Create non-root user for security and set proper permissions
 RUN useradd -m -u 1000 appuser && \
-    chown -R appuser:appuser /app
+    chown -R appuser:appuser /app && \
+    mkdir -p /tmp && \
+    chmod 777 /tmp
 
 # Switch to non-root user
 USER appuser
