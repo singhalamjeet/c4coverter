@@ -66,12 +66,18 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         with open(pdf_path, "wb") as f:
             f.write(content)
         
+        
         # LibreOffice command for conversion
         command = [
-            "soffice",
+            "libreoffice",
             "--headless",
-            "--nologo",
+            "--invisible",
+            "--nocrashreport",
+            "--nodefault",
             "--nofirststartwizard",
+            "--nolockcheck",
+            "--nologo",
+            "--norestore",
             "--convert-to",
             "docx",
             "--outdir",

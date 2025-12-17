@@ -5,12 +5,10 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install LibreOffice and all required dependencies
+# Install LibreOffice (full package) and dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    libreoffice \
     libreoffice-writer \
-    libreoffice-core \
-    libreoffice-common \
-    libreoffice-java-common \
     default-jre-headless \
     fonts-dejavu \
     fonts-liberation \
