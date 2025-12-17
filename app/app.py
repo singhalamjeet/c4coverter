@@ -63,6 +63,18 @@ async def faq():
         return HTMLResponse(content=f.read())
 
 
+@app.get("/contact", response_class=HTMLResponse)
+async def contact():
+    """Serve the contact page."""
+    html_path = Path(__file__).parent / "templates" / "contact.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+# Mount static files for favicon
+app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
+
+
 @app.get("/robots.txt")
 async def robots():
     """Serve robots.txt for search engines."""
