@@ -4,7 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to DOCX Converter</title>
+    <title>Free PDF to DOCX Converter - Fast & Secure Online Tool</title>
+    <meta name="description"
+        content="Convert PDF to DOCX online free. Secure server-side processing with automatic file deletion. No signup required. Professional document conversion.">
+    <meta name="keywords"
+        content="pdf to docx converter, pdf to word online, free pdf to docx, convert pdf to word, pdf converter, docx converter">
+    <link rel="canonical" href="https://c4converter.com">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "C4Converter - PDF to DOCX Converter",
+      "description": "Free online tool to convert PDF files to DOCX format with secure server-side processing and automatic file deletion",
+      "url": "https://c4converter.com",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Convert PDF to DOCX",
+        "Secure processing",
+        "No file storage",
+        "No registration required",
+        "Free unlimited conversions"
+      ]
+    }
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -16,9 +47,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
 
@@ -27,8 +55,8 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
             animation: slideUp 0.5s ease-out;
         }
 
@@ -47,7 +75,7 @@
         h1 {
             color: #333;
             margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 32px;
             text-align: center;
         }
 
@@ -55,7 +83,12 @@
             color: #666;
             text-align: center;
             margin-bottom: 30px;
-            font-size: 14px;
+            font-size: 16px;
+        }
+
+        .converter-section {
+            max-width: 500px;
+            margin: 0 auto 40px;
         }
 
         .upload-area {
@@ -189,13 +222,6 @@
             }
         }
 
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            color: #999;
-            font-size: 12px;
-        }
-
         .download-link {
             display: inline-block;
             margin-top: 10px;
@@ -212,36 +238,175 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
+
+        /* SEO Content Section */
+        .seo-content {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .seo-content h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .seo-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .seo-content ul {
+            margin: 15px 0 15px 30px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>📄 PDF to DOCX</h1>
-        <p class="subtitle">Convert your PDF files to Word documents instantly</p>
+        <h1>Free PDF to DOCX Converter</h1>
+        <p class="subtitle">Convert PDF to Word documents online - Secure, fast, and private</p>
 
-        <div class="upload-area" id="uploadArea">
-            <div class="upload-icon">📎</div>
-            <div class="upload-text">
-                <strong>Click to browse</strong> or drag and drop your PDF here
+        <div class="converter-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📎</div>
+                <div class="upload-text">
+                    <strong>Click to browse</strong> or drag and drop your PDF here
+                </div>
+                <div style="color: #999; font-size: 12px; margin-top: 8px;">
+                    Maximum file size: 50MB
+                </div>
             </div>
-            <div style="color: #999; font-size: 12px; margin-top: 8px;">
-                Maximum file size: 50MB
-            </div>
+
+            <input type="file" id="fileInput" accept=".pdf,application/pdf">
+
+            <div class="file-info" id="fileInfo"></div>
+
+            <button class="convert-btn" id="convertBtn" disabled>
+                Convert to DOCX
+            </button>
+
+            <div class="status" id="status"></div>
         </div>
 
-        <input type="file" id="fileInput" accept=".pdf,application/pdf">
+        <!-- SEO Content -->
+        <div class="seo-content">
+            <h2>Professional PDF to DOCX Conversion</h2>
+            <p>C4Converter provides a fast and secure solution for converting PDF files to Microsoft Word DOCX format
+                online. Our professional document conversion engine processes your files with high accuracy while
+                maintaining your privacy through secure server-side processing and automatic file deletion.</p>
 
-        <div class="file-info" id="fileInfo"></div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🔒 Secure</h3>
+                    <p>Files are processed securely and deleted immediately after conversion</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Fast</h3>
+                    <p>Quick conversion with no waiting time or queues</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🆓 Free</h3>
+                    <p>Unlimited conversions at no cost, no signup required</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Simple</h3>
+                    <p>Easy-to-use interface with drag and drop support</p>
+                </div>
+            </div>
 
-        <button class="convert-btn" id="convertBtn" disabled>
-            Convert to DOCX
-        </button>
+            <h2>Why Convert PDF to DOCX?</h2>
+            <p>Converting PDF documents to DOCX format allows you to edit, modify, and reformat content in Microsoft
+                Word, Google Docs, or any compatible word processor. Whether you need to update a report, extract
+                content, or collaborate on a document, our PDF to Word online converter makes the process seamless and
+                efficient.</p>
 
-        <div class="status" id="status"></div>
+            <h2>How Our PDF to DOCX Converter Works</h2>
+            <p>Our converter uses advanced document processing technology to transform your PDF files into fully
+                editable DOCX documents. The conversion process is straightforward:</p>
+            <ul>
+                <li>Upload your PDF file using drag-and-drop or file browser</li>
+                <li>Our secure server processes the document using professional conversion algorithms</li>
+                <li>Download your converted DOCX file immediately</li>
+                <li>Your original file is automatically deleted from our servers</li>
+            </ul>
+
+            <h2>Privacy and Security First</h2>
+            <p>We understand that document privacy is paramount. That's why C4Converter is designed with security at its
+                core. All file uploads are encrypted during transmission, processed entirely on secure servers, and
+                permanently deleted immediately after conversion. We do not store, share, or access your documents. No
+                file history is maintained, no user accounts are required, and no tracking occurs.</p>
+
+            <h2>Free PDF to DOCX Conversion - No Limits</h2>
+            <p>Unlike many online converters that impose restrictions or require payment for full features, C4Converter
+                offers completely free, unlimited PDF to DOCX conversions. There are no hidden fees, no subscription
+                requirements, and no artificial limitations on file size or conversion count. Simply upload, convert,
+                and download - as many times as you need.</p>
+        </div>
 
         <div class="footer">
-            Powered by C4Converter | Secure & Private
+            <div class="footer-links">
+                <a href="/about">About</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/how-it-works">How It Works</a>
+                <a href="/faq">FAQ</a>
+            </div>
+            <p>Free PDF to DOCX Converter • Secure Processing • No File Storage • No Signup Required</p>
+            <p style="margin-top: 10px;">Powered by C4Converter | Secure & Private</p>
         </div>
     </div>
 
@@ -254,17 +419,14 @@
 
         let selectedFile = null;
 
-        // Click to browse
         uploadArea.addEventListener('click', () => {
             fileInput.click();
         });
 
-        // File selection
         fileInput.addEventListener('change', (e) => {
             handleFileSelection(e.target.files[0]);
         });
 
-        // Drag and drop handlers
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -283,13 +445,11 @@
         function handleFileSelection(file) {
             if (!file) return;
 
-            // Validate file type
             if (!file.name.toLowerCase().endsWith('.pdf')) {
                 showStatus('error', '❌ Please select a PDF file');
                 return;
             }
 
-            // Validate file size (50MB)
             const maxSize = 50 * 1024 * 1024;
             if (file.size > maxSize) {
                 showStatus('error', '❌ File too large. Maximum size is 50MB');
@@ -298,34 +458,25 @@
 
             selectedFile = file;
 
-            // Show file info
             const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
             fileInfo.textContent = `📄 ${file.name} (${sizeInMB} MB)`;
             fileInfo.classList.add('show');
 
-            // Enable convert button
             convertBtn.disabled = false;
-
-            // Hide any previous status
             status.classList.remove('show');
         }
 
-        // Convert button handler
         convertBtn.addEventListener('click', async () => {
             if (!selectedFile) return;
 
-            // Disable button during conversion
             convertBtn.disabled = true;
 
             try {
-                // Show uploading status
                 showStatus('uploading', '<span class="spinner"></span> Uploading PDF...');
 
-                // Create form data
                 const formData = new FormData();
                 formData.append('file', selectedFile);
 
-                // Upload and convert
                 const response = await fetch('/convert', {
                     method: 'POST',
                     body: formData
@@ -336,13 +487,10 @@
                     throw new Error(error.detail || 'Conversion failed');
                 }
 
-                // Show converting status
                 showStatus('converting', '<span class="spinner"></span> Converting to DOCX...');
 
-                // Get the converted file
                 const blob = await response.blob();
 
-                // Extract filename from Content-Disposition header or use default
                 const contentDisposition = response.headers.get('content-disposition');
                 let filename = 'converted.docx';
                 if (contentDisposition) {
@@ -352,13 +500,10 @@
                     }
                 }
 
-                // Create download link
                 const url = window.URL.createObjectURL(blob);
 
-                // Show success status with download link
                 showStatus('success', `✅ Conversion successful! <br><a href="${url}" download="${filename}" class="download-link">📥 Download ${filename}</a>`);
 
-                // Enable convert button for next conversion
                 setTimeout(() => {
                     convertBtn.disabled = false;
                 }, 1000);

@@ -23,6 +23,61 @@ async def root():
         return HTMLResponse(content=f.read())
 
 
+@app.get("/about", response_class=HTMLResponse)
+async def about():
+    """Serve the about page."""
+    html_path = Path(__file__).parent / "templates" / "about.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@app.get("/privacy-policy", response_class=HTMLResponse)
+async def privacy_policy():
+    """Serve the privacy policy page."""
+    html_path = Path(__file__).parent / "templates" / "privacy-policy.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@app.get("/terms", response_class=HTMLResponse)
+async def terms():
+    """Serve the terms of service page."""
+    html_path = Path(__file__).parent / "templates" / "terms.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@app.get("/how-it-works", response_class=HTMLResponse)
+async def how_it_works():
+    """Serve the how it works page."""
+    html_path = Path(__file__).parent / "templates" / "how-it-works.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@app.get("/faq", response_class=HTMLResponse)
+async def faq():
+    """Serve the FAQ page."""
+    html_path = Path(__file__).parent / "templates" / "faq.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+@app.get("/robots.txt")
+async def robots():
+    """Serve robots.txt for search engines."""
+    robots_path = Path(__file__).parent.parent / "robots.txt"
+    return FileResponse(robots_path, media_type="text/plain")
+
+
+@app.get("/sitemap.xml")
+async def sitemap():
+    """Serve sitemap.xml for search engines."""
+    sitemap_path = Path(__file__).parent.parent / "sitemap.xml"
+    return FileResponse(sitemap_path, media_type="application/xml")
+
+
+
 @app.post("/convert")
 async def convert_pdf_to_docx(file: UploadFile = File(...)):
     """
