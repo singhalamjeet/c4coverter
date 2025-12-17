@@ -334,6 +334,25 @@
         <h1><span style="color: #667eea;">C</span> <span style="color: #764ba2;">4</span> Converter</h1>
         <p class="subtitle">Convert PDF to Word documents online - Secure, fast, and private</p>
 
+        <div class="features-grid" style="margin-bottom: 30px;">
+            <div class="feature-card">
+                <h3>🔒 Secure</h3>
+                <p>Files are processed securely and deleted immediately after conversion</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Fast</h3>
+                <p>Quick conversion with no waiting time or queues</p>
+            </div>
+            <div class="feature-card">
+                <h3>🆓 Free</h3>
+                <p>Unlimited conversions at no cost, no signup required</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎯 Simple</h3>
+                <p>Easy-to-use interface with drag and drop support</p>
+            </div>
+        </div>
+
         <div class="converter-section">
             <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">📎</div>
@@ -363,24 +382,7 @@
                 online. Our professional document conversion engine processes your files with high accuracy while
                 maintaining your privacy through secure server-side processing and automatic file deletion.</p>
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>🔒 Secure</h3>
-                    <p>Files are processed securely and deleted immediately after conversion</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚡ Fast</h3>
-                    <p>Quick conversion with no waiting time or queues</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🆓 Free</h3>
-                    <p>Unlimited conversions at no cost, no signup required</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🎯 Simple</h3>
-                    <p>Easy-to-use interface with drag and drop support</p>
-                </div>
-            </div>
+
 
             <h2>Why Convert PDF to DOCX?</h2>
             <p>Converting PDF documents to DOCX format allows you to edit, modify, and reformat content in Microsoft
@@ -522,7 +524,7 @@
 
                 const url = window.URL.createObjectURL(blob);
 
-                showStatus('success', `✅ Conversion successful! <br><a href="${url}" download="${filename}" class="download-link">📥 Download ${filename}</a>`);
+                showStatus('success', `✅ Conversion successful! <br><a href="${url}" download="${filename}" class="download-link">📥 Download</a>`);
 
                 setTimeout(() => {
                     convertBtn.disabled = false;
