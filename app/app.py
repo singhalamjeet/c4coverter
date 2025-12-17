@@ -67,21 +67,11 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
             f.write(content)
         
         
-        # LibreOffice command for conversion
+        # Use unoconv for conversion (better for headless environments)
         command = [
-            "libreoffice",
-            "--headless",
-            "--invisible",
-            "--nocrashreport",
-            "--nodefault",
-            "--nofirststartwizard",
-            "--nolockcheck",
-            "--nologo",
-            "--norestore",
-            "--convert-to",
-            "docx",
-            "--outdir",
-            temp_dir,
+            "unoconv",
+            "-f", "docx",
+            "-o", temp_dir,
             pdf_path
         ]
         
