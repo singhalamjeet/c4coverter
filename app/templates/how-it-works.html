@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Convert PDF to DOCX - C4Converter Guide</title>
+    <title>How It Works - PDF Tools Guide | C4Converter</title>
     <meta name="description"
-        content="Learn how C4Converter converts PDF to DOCX online. Simple 3-step process with secure server-side processing and automatic deletion.">
+        content="Learn how to use C4Converter's free PDF tools. Step-by-step guides for converting PDF to Word, merging PDFs, splitting PDFs, and converting PDF to images.">
+    <meta name="keywords"
+        content="how to convert pdf to word, merge pdf tutorial, split pdf guide, pdf to images how to">
     <link rel="canonical" href="https://c4converter.com/how-it-works">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+
     <style>
         * {
             margin: 0;
@@ -16,10 +22,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
+            color: #333;
         }
 
         .container {
@@ -27,180 +35,431 @@
             border-radius: 20px;
             padding: 50px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         h1 {
-            color: #333;
-            margin-bottom: 30px;
+            color: #667eea;
+            margin-bottom: 15px;
             font-size: 36px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
         }
 
         h2 {
-            color: #4c51bf;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 24px;
+            color: #764ba2;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 28px;
+            border-bottom: 3px solid #f0f2ff;
+            padding-bottom: 10px;
         }
 
-        .step-content p {
-            color: #444;
-            font-size: 14px;
-            margin-bottom: 0;
+        h3 {
+            color: #667eea;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 20px;
         }
 
         p {
-            color: #333;
+            color: #555;
             line-height: 1.8;
             margin-bottom: 15px;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #4c51bf;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .footer-section {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #e0e0e0;
-            text-align: center;
-            color: #555;
-            font-size: 13px;
-        }
-
-        .footer-section a {
-            color: #4c51bf;
-            text-decoration: none;
-            margin: 5px 10px;
-            padding: 12px;
-            display: inline-block;
-            border-radius: 6px;
-        }
-
-        .footer-section a:hover {
-            text-decoration: underline;
-            background-color: #f0f2ff;
-        }
-
-        .step {
+        .steps {
             background: #f8f9ff;
             padding: 25px;
             border-radius: 10px;
             margin: 20px 0;
-            border-left: 4px solid #667eea;
         }
 
-        .step-number {
-            display: inline-block;
+        .step {
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .step::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
             background: #667eea;
             color: white;
-            width: 35px;
-            height: 35px;
             border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-right: 15px;
+            font-size: 14px;
         }
 
-        .step h3 {
-            color: #333;
+        .step strong {
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .tips {
+            background: #fff4e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tips h4 {
+            color: #ff9800;
             margin-bottom: 10px;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #f0f2ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .back-home a {
             display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .back-home a:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <main class="container">
-        <a href="/" class="back-link">← Back to Converter</a>
+    <div class="container">
+        <h1>🚀 How It Works</h1>
+        <p class="subtitle">Step-by-step guides for all C4Converter PDF tools</p>
 
-        <h1>How It Works</h1>
+        <!-- PDF to DOCX -->
+        <h2>📄 How to Convert PDF to DOCX (Word)</h2>
+        <p>
+            Transform your PDF files into fully editable Microsoft Word documents in seconds. Perfect for editing
+            contracts, resumés, reports, essays, and any text-based PDFs.
+        </p>
 
-        <p>C4Converter makes PDF to DOCX conversion simple and secure. Our process is designed to be fast, private, and
-            user-friendly. Here's exactly how it works:</p>
+        <div class="steps">
+            <div class="step">
+                <strong>Step 1: Select the Tool</strong><br>
+                Click on the <strong>"PDF to DOCX"</strong> tab on the homepage.
+            </div>
 
-        <div class="step">
-            <span class="step-number">1</span>
-            <h3>Upload Your PDF File</h3>
-            <p>Click the upload area or drag and drop your PDF file directly into the browser. Our interface supports
-                files up to 50MB in size. The file is immediately encrypted and transmitted securely to our servers via
-                HTTPS.</p>
+            <div class="step">
+                <strong>Step 2: Upload Your PDF</strong><br>
+                Click the upload area or drag-and-drop your PDF file (max 50MB). Supported browsers will show your file
+                name once uploaded.
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Start Conversion</strong><br>
+                Click the <strong>"Convert to DOCX"</strong> button. You'll see a "⏳ Processing your PDF..." status
+                message.
+            </div>
+
+            <div class="step">
+                <strong>Step 4: Download Your DOCX</strong><br>
+                When conversion completes, click the <strong>"📥 Download DOCX File"</strong> button to save your
+                editable Word document.
+            </div>
         </div>
 
-        <div class="step">
-            <span class="step-number">2</span>
-            <h3>Secure Server Processing</h3>
-            <p>Once uploaded, your PDF is processed on our secure servers using professional document conversion
-                algorithms. The conversion happens entirely server-side, meaning your device doesn't need to do any
-                heavy processing.</p>
-        </div>
-
-        <div class="step">
-            <span class="step-number">3</span>
-            <h3>Download & Auto-Delete</h3>
-            <p>As soon as conversion completes, your DOCX file becomes available for download. Click the download link
-                to save it to your device. Immediately after serving the file, our system automatically and permanently
-                deletes both your original PDF and the converted DOCX from our servers. No traces remain.</p>
-        </div>
-
-        <h2>Technical Details</h2>
-        <p>Our conversion process uses advanced document processing technology to analyze PDF structure and recreate it
-            in DOCX format. This includes:</p>
-        <ul style="margin: 15px 0 15px 30px; color: #555; line-height: 1.8;">
-            <li>Text extraction with formatting preservation</li>
-            <li>Image embedding and positioning</li>
-            <li>Table structure recognition and conversion</li>
-            <li>Font and style mapping to Word-compatible formats</li>
-            <li>Page layout adaptation for editable documents</li>
+        <h3>What Gets Converted?</h3>
+        <ul>
+            <li><strong>Text content</strong> - All paragraphs, headings, and body text</li>
+            <li><strong>Images</strong> - Photos, logos, and graphics embedded in the PDF</li>
+            <li><strong>Tables</strong> - Data tables with rows and columns</li>
+            <li><strong>Formatting</strong> - Font styles, sizes, colors, and basic layouts</li>
+            <li><strong>Lists</strong> - Bulleted and numbered lists</li>
         </ul>
 
-        <h2>Why Server-Side Processing?</h2>
-        <p>We perform conversion on our servers rather than in your browser for several important reasons:</p>
-        <ul style="margin: 15px 0 15px 30px; color: #555; line-height: 1.8;">
-            <li><strong>Speed:</strong> Server processing is significantly faster than browser-based conversion</li>
-            <li><strong>Reliability:</strong> Professional conversion engines produce higher quality results</li>
-            <li><strong>Device Independence:</strong> Works on any device without requiring powerful hardware</li>
-            <li><strong>Complex Documents:</strong> Handles large and complex PDFs that would crash browser-based tools
+        <div class="tips">
+            <h4>💡 Tips for Best Results:</h4>
+            <ul style="margin: 0;">
+                <li>Use text-based PDFs (not scanned images) for optimal results</li>
+                <li>Complex layouts may require minor formatting adjustments in Word</li>
+                <li>Convert one page at a time if you only need specific sections</li>
+                <li>Most conversions complete in 10-30 seconds</li>
+            </ul>
+        </div>
+
+        <!-- Merge PDFs -->
+        <h2>🔗 How to Merge Multiple PDFs</h2>
+        <p>
+            Combine up to 10 PDF files into a single organized document. Great for consolidating invoices, reports,
+            chapters, contracts, or scanned pages.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <strong>Step 1: Go to Merge Tool</strong><br>
+                Click the <strong>"Merge PDFs"</strong> tab on the homepage.
+            </div>
+
+            <div class="step">
+                <strong>Step 2: Upload PDFs</strong><br>
+                Click "Select PDFs" or drag-and-drop up to 10 PDF files. Total combined size must be under 100MB.
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Arrange Order (Optional)</strong><br>
+                Your files appear in upload order. Drag files to rearrange if your browser supports it, or upload in
+                your preferred sequence.
+            </div>
+
+            <div class="step">
+                <strong>Step 4: Merge Files</strong><br>
+                Click <strong>"Merge PDFs"</strong>. The tool combines all files in the order shown.
+            </div>
+
+            <div class="step">
+                <strong>Step 5: Download Merged PDF</strong><br>
+                Click <strong>"📥 Download Merged PDF"</strong> to save your combined document.
+            </div>
+        </div>
+
+        <h3>Use Cases for Merging:</h3>
+        <ul>
+            <li>Combine multiple invoices or receipts for accounting</li>
+            <li>Consolidate book chapters or thesis sections</li>
+            <li>Merge scanned documents or photos into one file</li>
+            <li>Create complete reports from separate sections</li>
+            <li>Package client deliverables into a single PDF</li>
+        </ul>
+
+        <div class="tips">
+            <h4>💡 Merging Best Practices:</h4>
+            <ul style="margin: 0;">
+                <li>Rename files numerically (01, 02, 03) if order matters</li>
+                <li>Check file size before uploading (100MB total limit)</li>
+                <li>Merged PDFs maintain original quality—no compression</li>
+                <li>Page count = sum of all input PDFs</li>
+            </ul>
+        </div>
+
+        <!-- Split PDF -->
+        <h2>✂️ How to Split a PDF File</h2>
+        <p>
+            Extract specific pages or page ranges from any PDF. Perfect for pulling out important sections, separating
+            chapters, or distributing individual pages.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <strong>Step 1: Select Split Tool</strong><br>
+                Click the <strong>"Split PDF"</strong> tab.
+            </div>
+
+            <div class="step">
+                <strong>Step 2: Upload PDF</strong><br>
+                Upload your PDF file (max 50MB). The tool works with PDFs of any page count.
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Enter Page Ranges</strong><br>
+                Type the pages you want to extract using the format below:<br>
+                <code>1-5</code> = pages 1 through 5<br>
+                <code>1,3,5</code> = only pages 1, 3, and 5<br>
+                <code>1-5,8,10-12</code> = pages 1-5, page 8, and pages 10-12
+            </div>
+
+            <div class="step">
+                <strong>Step 4: Split PDF</strong><br>
+                Click <strong>"Split PDF"</strong> to extract your selected pages.
+            </div>
+
+            <div class="step">
+                <strong>Step 5: Download ZIP File</strong><br>
+                Click <strong>"📥 Download Split Pages (ZIP)"</strong>. Each extracted page is saved as a separate PDF
+                (e.g., page_1.pdf, page_3.pdf) in the ZIP archive.
+            </div>
+        </div>
+
+        <h3>Page Range Examples:</h3>
+        <div class="highlight">
+            <p style="margin: 0;"><code>1</code> → Extract only page 1</p>
+            <p style="margin: 10px 0 0 0;"><code>1-10</code> → Extract pages 1 through 10</p>
+            <p style="margin: 10px 0 0 0;"><code>2,4,6</code> → Extract pages 2, 4, and 6 only</p>
+            <p style="margin: 10px 0 0 0;"><code>1-3,7-9,15</code> → Extract pages 1-3, 7-9, and page 15</p>
+            <p style="margin: 10px 0 0 0;"><code>5-</code> → NOT SUPPORTED (use specific numbers)</p>
+        </div>
+
+        <div class="tips">
+            <h4>💡 Splitting Tips:</h4>
+            <ul style="margin: 0;">
+                <li>No limit on how many pages you can extract</li>
+                <li>Open the PDF first to verify page numbers</li>
+                <li>Use commas to separate non-consecutive pages</li>
+                <li>Each page becomes an individual PDF file in the ZIP</li>
+            </ul>
+        </div>
+
+        <!-- PDF to Images -->
+        <h2>🖼️ How to Convert PDF to Images</h2>
+        <p>
+            Transform each PDF page into high-quality PNG or JPG images. Perfect for creating thumbnails, social media
+            posts, presentations, or image archives.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <strong>Step 1: Open Images Tool</strong><br>
+                Click the <strong>"PDF to Images"</strong> tab.
+            </div>
+
+            <div class="step">
+                <strong>Step 2: Upload PDF</strong><br>
+                Upload your PDF file (max 50MB).
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Choose Settings</strong><br>
+                <strong>Format:</strong> Select PNG (higher quality, transparency) or JPG (smaller size)<br>
+                <strong>DPI:</strong> Choose image quality from 150-300 (default: 200)
+            </div>
+
+            <div class="step">
+                <strong>Step 4: Convert to Images</strong><br>
+                Click <strong>"Convert to Images"</strong>. Each PDF page will be rendered as an image.
+            </div>
+
+            <div class="step">
+                <strong>Step 5: Download Images</strong><br>
+                Click <strong>"📥 Download Images (ZIP)"</strong> to get all page images in a ZIP file.
+            </div>
+        </div>
+
+        <h3>Format & Quality Guide:</h3>
+        <div class="highlight">
+            <p><strong>PNG Format:</strong></p>
+            <ul style="margin-top: 5px;">
+                <li>✅ Lossless quality (perfect reproduction)</li>
+                <li>✅ Supports transparency</li>
+                <li>❌ Larger file sizes</li>
+                <li><strong>Best for:</strong> Screenshots, diagrams, text documents</li>
+            </ul>
+
+            <p style="margin-top: 20px;"><strong>JPG Format:</strong></p>
+            <ul style="margin-top: 5px;">
+                <li>✅ Smaller file sizes</li>
+                <li>✅ Good for photos</li>
+                <li>❌ Slight quality loss</li>
+                <li>❌ No transparency</li>
+                <li><strong>Best for:</strong> Photos, photos, social media</li>
+            </ul>
+        </div>
+
+        <h3>DPI (Quality) Settings:</h3>
+        <ul>
+            <li><strong>150 DPI:</strong> Lower quality, smaller files (~500KB per page). Good for web thumbnails.</li>
+            <li><strong>200 DPI (Default):</strong> Balanced quality (~1-2MB per page). Recommended for most uses.</li>
+            <li><strong>300 DPI:</strong> Print quality, larger files (~3-5MB per page). Best for professional printing.
             </li>
         </ul>
 
-        <h2>Security Measures</h2>
-        <p>Every step of our process is designed with security in mind:</p>
-        <ul style="margin: 15px 0 15px 30px; color: #555; line-height: 1.8;">
-            <li>All uploads use HTTPS encryption during transmission</li>
-            <li>Files are processed in isolated, temporary memory spaces</li>
-            <li>No file logging or archiving occurs at any stage</li>
-            <li>Automatic deletion is enforced at the system level</li>
-            <li>No user authentication means no data breach risk</li>
+        <div class="tips">
+            <h4>💡 Image Conversion Tips:</h4>
+            <ul style="margin: 0;">
+                <li>Use PNG for text documents and screenshots</li>
+                <li>Use JPG for photo-heavy PDFs or social sharing</li>
+                <li>200 DPI balances quality and file size for most needs</li>
+                <li>All pages are converted—ZIP contains one image per page</li>
+            </ul>
+        </div>
+
+        <!-- General Tips -->
+        <h2>🔒 Security & Privacy</h2>
+        <p>
+            All PDF processing happens securely with these guarantees:
+        </p>
+        <ul>
+            <li><strong>HTTPS Encryption:</strong> All file uploads use secure SSL/TLS encryption</li>
+            <li><strong>Automatic Deletion:</strong> Files are permanently deleted immediately after processing</li>
+            <li><strong>No Storage:</strong> We never save or log your documents</li>
+            <li><strong>No Third-Party Access:</strong> Your files stay between you and our secure servers</li>
         </ul>
 
-        <h2>Conversion Quality</h2>
-        <p>While we strive for high-quality conversions, it's important to understand that PDF to DOCX conversion has
-            inherent limitations. PDFs are designed for fixed layout display, while DOCX files are meant to be editable
-            and reflowable. As a result:</p>
-        <ul style="margin: 15px 0 15px 30px; color: #555; line-height: 1.8;">
-            <li>Simple text-based PDFs convert with excellent accuracy</li>
-            <li>Complex layouts may require minor manual adjustments after conversion</li>
-            <li>Scanned PDFs without text layers cannot be converted to editable text</li>
-            <li>Some PDF-specific features (like forms or annotations) may not translate directly</li>
-        </ul>
+        <h2>⚡ Frequently Asked Questions</h2>
+        <p><strong>Q: How long does processing take?</strong><br>
+            A: Most operations complete in 10-30 seconds. Larger files or high-DPI image conversions may take up to 2
+            minutes.</p>
 
-        <div class="footer-section">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/faq">FAQ</a>
-            <p style="margin-top: 15px;">© 2024 C4Converter</p>
+        <p><strong>Q: Can I use these tools on mobile?</strong><br>
+            A: Yes! All tools work perfectly on smartphones and tablets. You can also install C4Converter as a PWA for
+            app-like experience.</p>
+
+        <p><strong>Q: Is there a file size limit?</strong><br>
+            A: Yes. Single files: 50MB max. PDF merging: 10 files, 100MB total max.</p>
+
+        <p><strong>Q: Do I need to register?</strong><br>
+            A: No registration required! All tools are instantly available without creating an account.</p>
+
+        <p>
+            For more questions, visit our <a href="/faq" style="color: #667eea; font-weight: 600;">FAQ page</a>.
+        </p>
+
+        <div class="back-home">
+            <a href="/">← Back to Tools</a>
         </div>
-        </div>
+    </div>
 </body>
 
 </html>
