@@ -5,8 +5,9 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies for pdf2docx
+# Install system dependencies for pdf2docx and pdf2image
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    poppler-utils \
     fonts-dejavu \
     fonts-liberation \
     && apt-get clean \

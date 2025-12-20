@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free PDF to DOCX Converter - C4Converter Online Tool</title>
+    <title>Free PDF Tools - Convert, Merge, Split | C4Converter</title>
     <meta name="description"
-        content="Convert PDF to DOCX online free with C4Converter. Secure server-side processing, automatic file deletion. No signup required. Fast PDF to Word conversion.">
-    <meta name="keywords"
-        content="pdf to docx converter, pdf to word converter, convert pdf to docx online, free pdf to docx, online pdf to word tool">
+        content="Free online PDF tools: Convert PDF to DOCX, Merge PDFs, Split PDFs, Convert PDF to Images. No signup, secure processing, automatic file deletion.">
+    <meta name="keywords" content="pdf to docx, pdf merger, pdf splitter, pdf to images, pdf tools, free pdf converter">
     <link rel="canonical" href="https://c4converter.com">
-    <link rel="icon" type="image/png" href="/static/favicon.png">
 
     <!-- Schema Markup -->
     <script type="application/ld+json">
@@ -27,10 +25,11 @@
       },
       "featureList": [
         "Convert PDF to DOCX",
+        "Merge multiple PDFs",
+        "Split PDF by pages",
+        "Convert PDF to images",
         "Secure processing",
-        "No file storage",
-        "No registration required",
-        "Free unlimited conversions"
+        "No file storage"
       ]
     }
     </script>
@@ -79,17 +78,64 @@
         }
 
         .subtitle {
-            color: #444;
+            color: #666;
             text-align: center;
             margin-bottom: 30px;
             font-size: 16px;
         }
 
-        .converter-section {
-            max-width: 500px;
-            margin: 0 auto 40px;
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
+        .tab-button {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #555;
+        }
+
+        .tab-button:hover {
+            background: #e0e0ff;
+            color: #4c51bf;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Upload Area */
         .upload-area {
             border: 2px dashed #667eea;
             border-radius: 12px;
@@ -98,424 +144,388 @@
             margin-bottom: 20px;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: #f8f9ff;
         }
 
-        .upload-area:hover {
-            border-color: #764ba2;
-            background: #f0f2ff;
-            transform: scale(1.02);
-        }
-
+        .upload-area:hover,
         .upload-area.dragover {
-            border-color: #764ba2;
-            background: #e8ebff;
+            background: #f8f9ff;
+            border-color: #4c51bf;
         }
 
-        .upload-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: #4c51bf;
+        .upload-area svg {
+            margin-bottom: 15px;
         }
 
         .upload-text {
-            color: #444;
+            color: #666;
+            font-size: 16px;
             margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: #999;
+            font-size: 13px;
         }
 
         input[type="file"] {
             display: none;
         }
 
-        .file-info {
-            margin: 15px 0;
-            padding: 12px;
-            background: #f0f2ff;
-            border-radius: 8px;
-            color: #333;
-            font-size: 14px;
-            display: none;
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .file-info.show {
+        .form-group label {
             display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
         }
 
-        .convert-btn {
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Buttons */
+        .button-primary {
             width: 100%;
             padding: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .convert-btn:hover:not(:disabled) {
+        .button-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .convert-btn:disabled {
-            background: #ccc;
+        .button-primary:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .status {
-            margin-top: 20px;
+        /* File List */
+        .file-list {
+            margin-bottom: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .file-name {
+            flex: 1;
+            color: #333;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            color: #999;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .file-remove {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Status Messages */
+        .status-message {
             padding: 15px;
             border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
+            margin-bottom: 20px;
             display: none;
         }
 
-        .status.show {
-            display: block;
-        }
-
-        .status.uploading {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-        }
-
-        .status.converting {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
-        .status.success {
+        .status-message.success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
 
-        .status.error {
+        .status-message.error {
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
 
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-top-color: currentColor;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .download-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .download-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        /* SEO Content Section */
-        .seo-content {
+        /* Footer */
+        .footer {
             margin-top: 50px;
-            padding-top: 40px;
+            padding-top: 30px;
             border-top: 1px solid #e0e0e0;
-        }
-
-        .seo-content h2 {
-            color: #333;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .seo-content p {
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .seo-content ul {
-            margin: 15px 0 15px 30px;
-            color: #555;
-            line-height: 1.8;
-        }
-
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .feature-card {
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 10px;
             text-align: center;
         }
 
-        .feature-card h3 {
+        .footer-nav a {
             color: #4c51bf;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .feature-card p {
-            color: #444;
+            text-decoration: none;
+            margin: 5px 10px;
+            padding: 12px;
+            display: inline-block;
+            border-radius: 6px;
             font-size: 14px;
         }
 
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            text-align: center;
-            color: #555;
+        .footer-nav a:hover {
+            text-decoration: underline;
+            background-color: #f0f2ff;
+        }
+
+        .footer-text {
+            color: #666;
+            margin-top: 20px;
             font-size: 13px;
         }
 
-        .footer-links {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
 
-        .footer-links a {
-            color: #4c51bf;
-            text-decoration: none;
-            padding: 12px 15px;
-            display: inline-block;
-            border-radius: 6px;
-        }
+            h1 {
+                font-size: 24px;
+            }
 
-        .footer-links a:hover {
-            text-decoration: underline;
-            background-color: #f0f2ff;
+            .tab-button {
+                font-size: 13px;
+                padding: 10px 16px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <main class="container">
-        <h1><span style="color: #4c51bf;">C</span><span style="color: #764ba2;">4</span>Converter</h1>
-        <p class="subtitle">Convert PDF to Word documents online - Secure, fast, and private</p>
+    <div class="container">
+        <h1>C4Converter</h1>
+        <p class="subtitle">Free PDF Tools - Convert, Merge, Split & More</p>
 
-        <div class="features-grid" style="margin-bottom: 30px;">
-            <div class="feature-card">
-                <h2>🔒 Secure</h2>
-                <p>Files are processed securely and deleted immediately after conversion</p>
-            </div>
-            <div class="feature-card">
-                <h2>⚡ Fast</h2>
-                <p>Quick conversion with no waiting time or queues</p>
-            </div>
-            <div class="feature-card">
-                <h2>🆓 Free</h2>
-                <p>Unlimited conversions at no cost, no signup required</p>
-            </div>
-            <div class="feature-card">
-                <h2>🎯 Simple</h2>
-                <p>Easy-to-use interface with drag and drop support</p>
-            </div>
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-button active" data-tab="convert">📄 PDF to DOCX</button>
+            <button class="tab-button" data-tab="merge">🔗 Merge PDFs</button>
+            <button class="tab-button" data-tab="split">✂️ Split PDF</button>
+            <button class="tab-button" data-tab="images">🖼️ PDF to Images</button>
         </div>
 
-        <div class="converter-section">
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">📎</div>
-                <div class="upload-text">
-                    <strong>Click to browse</strong> or drag and drop your PDF here
-                </div>
-                <div style="color: #555; font-size: 12px; margin-top: 8px;">
-                    Maximum file size: 50MB
-                </div>
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message"></div>
+
+        <!-- Tab 1: PDF to DOCX -->
+        <div id="convert-tab" class="tab-content active">
+            <div class="upload-area" id="convertUploadArea">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="upload-text">Click to upload or drag & drop</div>
+                <div class="upload-hint">PDF file (max 50MB)</div>
+                <input type="file" id="convertFileInput" accept=".pdf">
+            </div>
+            <button class="button-primary" id="convertButton" disabled>Convert to DOCX</button>
+        </div>
+
+        <!-- Tab 2: PDF Merger -->
+        <div id="merge-tab" class="tab-content">
+            <div class="upload-area" id="mergeUploadArea">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="upload-text">Click to add PDFs or drag & drop</div>
+                <div class="upload-hint">Multiple PDFs (2-10 files, max 100MB total)</div>
+                <input type="file" id="mergeFileInput" accept=".pdf" multiple>
             </div>
 
-            <input type="file" id="fileInput" accept=".pdf,application/pdf">
+            <div id="mergeFileList" class="file-list"></div>
 
-            <div class="file-info" id="fileInfo"></div>
-
-            <button class="convert-btn" id="convertBtn" disabled>
-                Convert to DOCX
-            </button>
-
-            <div class="status" id="status"></div>
+            <button class="button-primary" id="mergeButton" disabled>Merge PDFs</button>
         </div>
 
-        <!-- SEO Content -->
-        <div class="seo-content">
-            <section>
-                <h2>What is C4Converter?</h2>
-                <p>C4Converter is a free, browser-based tool that converts PDF files into editable Microsoft Word (DOCX)
-                    documents. The name "C4" is our brand identity—it's not a file format. This tool is designed for
-                    students, professionals, and office workers who need quick, secure PDF to Word conversion without
-                    installing software.</p>
-            </section>
+        <!-- Tab 3: PDF Splitter -->
+        <div id="split-tab" class="tab-content">
+            <div class="upload-area" id="splitUploadArea">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="upload-text">Click to upload or drag & drop</div>
+                <div class="upload-hint">PDF file (max 50MB)</div>
+                <input type="file" id="splitFileInput" accept=".pdf">
+            </div>
 
-            <section>
-                <h2>What does C4Converter do?</h2>
-                <p><strong>Input Format:</strong> PDF files (Portable Document Format).</p>
-                <p><strong>Output Format:</strong> DOCX (Microsoft Word editable documents).</p>
-                <p><strong>Key Benefits:</strong> Preserves text, images, tables, and formatting while ensuring complete
-                    document privacy through automatic file deletion.</p>
-            </section>
+            <div class="form-group">
+                <label for="pageRanges">Page Ranges (e.g., "1-5,8,10-12")</label>
+                <input type="text" id="pageRanges" placeholder="1-5,8,10-12">
+                <div class="upload-hint" style="margin-top: 8px;">Extract specific pages from your PDF</div>
+            </div>
 
-            <section>
-                <h2>Is C4Converter free and safe?</h2>
-                <p>Yes. C4Converter is completely free with no hidden costs or subscription requirements. No user
-                    registration is needed. All files are processed in a secure server environment and automatically
-                    permanently deleted immediately after conversion. We do not store, view, or share your documents.
-                </p>
-            </section>
-
-            <section>
-                <h2>How does C4Converter work?</h2>
-                <ol>
-                    <li><strong>Upload:</strong> Select your PDF file via drag-and-drop or file browser.</li>
-                    <li><strong>Convert:</strong> Our server processes the PDF and converts it to editable DOCX format.
-                    </li>
-                    <li><strong>Download:</strong> Download the converted Word document instantly.</li>
-                    <li><strong>Auto-Delete:</strong> Both original and converted files are permanently erased from our
-                        servers.</li>
-                </ol>
-            </section>
-
-            <section>
-                <h2>Who should use C4Converter?</h2>
-                <ul>
-                    <li><strong>Students:</strong> Convert PDF assignments and notes into editable Word documents.</li>
-                    <li><strong>Professionals:</strong> Edit PDF reports and proposals in Microsoft Word.</li>
-                    <li><strong>Office Workers:</strong> Quickly convert PDF documents for collaboration.</li>
-                    <li><strong>Freelancers:</strong> Transform client PDFs into editable formats without expensive
-                        software.</li>
-                </ul>
-            </section>
+            <button class="button-primary" id="splitButton" disabled>Split PDF</button>
         </div>
 
+        <!-- Tab 4: PDF to Images -->
+        <div id="images-tab" class="tab-content">
+            <div class="upload-area" id="imagesUploadArea">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="upload-text">Click to upload or drag & drop</div>
+                <div class="upload-hint">PDF file (max 50MB)</div>
+                <input type="file" id="imagesFileInput" accept=".pdf">
+            </div>
+
+            <div class="form-group">
+                <label for="imageFormat">Output Format</label>
+                <select id="imageFormat">
+                    <option value="png">PNG (Best Quality)</option>
+                    <option value="jpg">JPG (Smaller Size)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imageDPI">Image Quality (DPI)</label>
+                <select id="imageDPI">
+                    <option value="150">150 DPI (Screen)</option>
+                    <option value="200" selected>200 DPI (Balanced)</option>
+                    <option value="300">300 DPI (Print)</option>
+                </select>
+            </div>
+
+            <button class="button-primary" id="imagesButton" disabled>Convert to Images</button>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            <div style="margin-bottom: 20px;">
-                <a href="https://buymeacoffee.com/y4yes" target="_blank" rel="noopener"
-                    style="display: inline-block; padding: 10px 20px; background: #FFDD00; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">☕
-                    Buy Me a Coffee</a>
-            </div>
-            <div class="footer-links">
+            <nav class="footer-nav">
                 <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/privacy-policy">Privacy Policy</a>
-                <a href="/terms">Terms of Service</a>
-                <a href="/how-it-works">How It Works</a>
                 <a href="/faq">FAQ</a>
-            </div>
-            <p>Free PDF to DOCX Converter • Secure Processing • No File Storage • No Signup Required</p>
-            <p style="margin-top: 10px;">Powered by C4Converter | Secure & Private</p>
+                <a href="/privacy-policy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="/sitemap">Sitemap</a>
+            </nav>
+            <p class="footer-text">© 2024 C4Converter - Free PDF to DOCX Converter & PDF Tools</p>
         </div>
-    </main>
+    </div>
 
     <script>
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const fileInfo = document.getElementById('fileInfo');
-        const convertBtn = document.getElementById('convertBtn');
-        const status = document.getElementById('status');
+        // Tab Switching
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
 
-        let selectedFile = null;
+                // Update active tab content
+                const tabName = button.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tabName}-tab`).classList.add('active');
 
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
+                // Clear status message
+                hideStatus();
+            });
         });
 
-        fileInput.addEventListener('change', (e) => {
-            handleFileSelection(e.target.files[0]);
-        });
-
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            handleFileSelection(e.dataTransfer.files[0]);
-        });
-
-        function handleFileSelection(file) {
-            if (!file) return;
-
-            if (!file.name.toLowerCase().endsWith('.pdf')) {
-                showStatus('error', '❌ Please select a PDF file');
-                return;
-            }
-
-            const maxSize = 50 * 1024 * 1024;
-            if (file.size > maxSize) {
-                showStatus('error', '❌ File too large. Maximum size is 50MB');
-                return;
-            }
-
-            selectedFile = file;
-
-            const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
-            fileInfo.textContent = `📄 ${file.name} (${sizeInMB} MB)`;
-            fileInfo.classList.add('show');
-
-            convertBtn.disabled = false;
-            status.classList.remove('show');
+        // Status Message Functions
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            statusEl.style.display = 'block';
         }
 
-        convertBtn.addEventListener('click', async () => {
-            if (!selectedFile) return;
+        function hideStatus() {
+            document.getElementById('statusMessage').style.display = 'none';
+        }
 
-            convertBtn.disabled = true;
+        // ========== PDF to DOCX ==========
+        const convertUploadArea = document.getElementById('convertUploadArea');
+        const convertFileInput = document.getElementById('convertFileInput');
+        const convertButton = document.getElementById('convertButton');
+        let convertFile = null;
+
+        convertUploadArea.addEventListener('click', () => convertFileInput.click());
+        convertUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            convertUploadArea.classList.add('dragover');
+        });
+        convertUploadArea.addEventListener('dragleave', () => {
+            convertUploadArea.classList.remove('dragover');
+        });
+        convertUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            convertUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                convertFileInput.files = e.dataTransfer.files;
+                handleConvertFileSelect();
+            }
+        });
+
+        convertFileInput.addEventListener('change', handleConvertFileSelect);
+
+        function handleConvertFileSelect() {
+            if (convertFileInput.files.length > 0) {
+                convertFile = convertFileInput.files[0];
+                convertButton.disabled = false;
+                showStatus(`File selected: ${convertFile.name}`, 'success');
+            }
+        }
+
+        convertButton.addEventListener('click', async () => {
+            if (!convertFile) return;
+
+            const formData = new FormData();
+            formData.append('file', convertFile);
+
+            convertButton.disabled = true;
+            showStatus('Converting...', 'info');
 
             try {
-                showStatus('uploading', '<span class="spinner"></span> Uploading PDF...');
-
-                const formData = new FormData();
-                formData.append('file', selectedFile);
-
                 const response = await fetch('/convert', {
                     method: 'POST',
                     body: formData
@@ -526,45 +536,281 @@
                     throw new Error(error.detail || 'Conversion failed');
                 }
 
-                showStatus('converting', '<span class="spinner"></span> Converting to DOCX...');
-
                 const blob = await response.blob();
-
-                const contentDisposition = response.headers.get('content-disposition');
-                let filename = 'converted.docx';
-                if (contentDisposition) {
-                    const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition);
-                    if (matches && matches[1]) {
-                        filename = matches[1].replace(/['"]/g, '');
-                    }
-                }
-
                 const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = convertFile.name.replace('.pdf', '.docx');
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
 
-                showStatus('success', `✅ Conversion successful! <br><a href="${url}" download="${filename}" class="download-link">📥 Download</a>`);
-
-                setTimeout(() => {
-                    convertBtn.disabled = false;
-                }, 1000);
-
+                showStatus('✅ Conversion successful! File downloaded.', 'success');
+                convertFile = null;
+                convertFileInput.value = '';
+                convertButton.disabled = true;
             } catch (error) {
-                showStatus('error', `❌ ${error.message}`);
-                convertBtn.disabled = false;
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                convertButton.disabled = false;
             }
         });
 
-        function showStatus(type, message) {
-            status.className = 'status show ' + type;
-            status.innerHTML = message;
+        // ========== PDF Merger ==========
+        const mergeUploadArea = document.getElementById('mergeUploadArea');
+        const mergeFileInput = document.getElementById('mergeFileInput');
+        const mergeButton = document.getElementById('mergeButton');
+        const mergeFileList = document.getElementById('mergeFileList');
+        let mergeFiles = [];
+
+        mergeUploadArea.addEventListener('click', () => mergeFileInput.click());
+        mergeUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            mergeUploadArea.classList.add('dragover');
+        });
+        mergeUploadArea.addEventListener('dragleave', () => {
+            mergeUploadArea.classList.remove('dragover');
+        });
+        mergeUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            mergeUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                addMergeFiles(Array.from(e.dataTransfer.files));
+            }
+        });
+
+        mergeFileInput.addEventListener('change', () => {
+            if (mergeFileInput.files.length > 0) {
+                addMergeFiles(Array.from(mergeFileInput.files));
+            }
+        });
+
+        function addMergeFiles(files) {
+            files.forEach(file => {
+                if (file.type === 'application/pdf' && mergeFiles.length < 10) {
+                    mergeFiles.push(file);
+                }
+            });
+
+            renderMergeFileList();
+            mergeButton.disabled = mergeFiles.length < 2;
+            mergeFileInput.value = '';
         }
 
-        function resetForm() {
-            selectedFile = null;
-            fileInput.value = '';
-            fileInfo.classList.remove('show');
-            status.classList.remove('show');
-            convertBtn.disabled = true;
+        function renderMergeFileList() {
+            mergeFileList.innerHTML = '';
+            mergeFiles.forEach((file, index) => {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = `
+                    <span class="file-name">${index + 1}. ${file.name}</span>
+                    <span class="file-size">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <button class="file-remove" onclick="removeMergeFile(${index})">Remove</button>
+                `;
+                mergeFileList.appendChild(div);
+            });
         }
+
+        window.removeMergeFile = (index) => {
+            mergeFiles.splice(index, 1);
+            renderMergeFileList();
+            mergeButton.disabled = mergeFiles.length < 2;
+        };
+
+        mergeButton.addEventListener('click', async () => {
+            if (mergeFiles.length < 2) return;
+
+            const formData = new FormData();
+            mergeFiles.forEach(file => formData.append('files', file));
+
+            mergeButton.disabled = true;
+            showStatus('Merging PDFs...', 'info');
+
+            try {
+                const response = await fetch('/merge', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Merge failed');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'merged.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showStatus('✅ PDFs merged successfully!', 'success');
+                mergeFiles = [];
+                renderMergeFileList();
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                mergeButton.disabled = false;
+            }
+        });
+
+        // ========== PDF Splitter ==========
+        const splitUploadArea = document.getElementById('splitUploadArea');
+        const splitFileInput = document.getElementById('splitFileInput');
+        const splitButton = document.getElementById('splitButton');
+        const pageRangesInput = document.getElementById('pageRanges');
+        let splitFile = null;
+
+        splitUploadArea.addEventListener('click', () => splitFileInput.click());
+        splitUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            splitUploadArea.classList.add('dragover');
+        });
+        splitUploadArea.addEventListener('dragleave', () => {
+            splitUploadArea.classList.remove('dragover');
+        });
+        splitUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            splitUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                splitFileInput.files = e.dataTransfer.files;
+                handleSplitFileSelect();
+            }
+        });
+
+        splitFileInput.addEventListener('change', handleSplitFileSelect);
+        pageRangesInput.addEventListener('input', updateSplitButton);
+
+        function handleSplitFileSelect() {
+            if (splitFileInput.files.length > 0) {
+                splitFile = splitFileInput.files[0];
+                updateSplitButton();
+                showStatus(`File selected: ${splitFile.name}`, 'success');
+            }
+        }
+
+        function updateSplitButton() {
+            splitButton.disabled = !splitFile || !pageRangesInput.value.trim();
+        }
+
+        splitButton.addEventListener('click', async () => {
+            if (!splitFile || !pageRangesInput.value.trim()) return;
+
+            const formData = new FormData();
+            formData.append('file', splitFile);
+            formData.append('pages', pageRangesInput.value.trim());
+
+            splitButton.disabled = true;
+            showStatus('Splitting PDF...', 'info');
+
+            try {
+                const response = await fetch('/split', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Split failed');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'split_pages.zip';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showStatus('✅ PDF split successfully! ZIP file downloaded.', 'success');
+                splitFile = null;
+                splitFileInput.value = '';
+                pageRangesInput.value = '';
+                updateSplitButton();
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                splitButton.disabled = false;
+            }
+        });
+
+        // ========== PDF to Images ==========
+        const imagesUploadArea = document.getElementById('imagesUploadArea');
+        const imagesFileInput = document.getElementById('imagesFileInput');
+        const imagesButton = document.getElementById('imagesButton');
+        let imagesFile = null;
+
+        imagesUploadArea.addEventListener('click', () => imagesFileInput.click());
+        imagesUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imagesUploadArea.classList.add('dragover');
+        });
+        imagesUploadArea.addEventListener('dragleave', () => {
+            imagesUploadArea.classList.remove('dragover');
+        });
+        imagesUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imagesUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                imagesFileInput.files = e.dataTransfer.files;
+                handleImagesFileSelect();
+            }
+        });
+
+        imagesFileInput.addEventListener('change', handleImagesFileSelect);
+
+        function handleImagesFileSelect() {
+            if (imagesFileInput.files.length > 0) {
+                imagesFile = imagesFileInput.files[0];
+                imagesButton.disabled = false;
+                showStatus(`File selected: ${imagesFile.name}`, 'success');
+            }
+        }
+
+        imagesButton.addEventListener('click', async () => {
+            if (!imagesFile) return;
+
+            const formData = new FormData();
+            formData.append('file', imagesFile);
+            formData.append('format', document.getElementById('imageFormat').value);
+            formData.append('dpi', document.getElementById('imageDPI').value);
+
+            imagesButton.disabled = true;
+            showStatus('Converting PDF to images...', 'info');
+
+            try {
+                const response = await fetch('/pdf-to-images', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Conversion failed');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'pdf_images.zip';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showStatus('✅ PDF converted to images successfully!', 'success');
+                imagesFile = null;
+                imagesFileInput.value = '';
+                imagesButton.disabled = true;
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                imagesButton.disabled = false;
+            }
+        });
     </script>
 </body>
 

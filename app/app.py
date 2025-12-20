@@ -1,18 +1,46 @@
 import os
 import tempfile
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
+import io
+import zipfile
 
-from fastapi import FastAPI, File, UploadFile, HTTPException, Request
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi import FastAPI, File, UploadFile, HTTPException, Request, Form
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from PyPDF2 import PdfWriter, PdfReader
+from pdf2image import convert_from_path
+from PIL import Image
 
 # Configuration from environment variables
 MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "50"))
 CONVERT_TIMEOUT_SEC = int(os.getenv("CONVERT_TIMEOUT_SEC", "120"))
 MAX_UPLOAD_BYTES = MAX_UPLOAD_MB * 1024 * 1024
+MAX_MERGE_FILES = 10
+MAX_MERGE_TOTAL_MB = 100  # Maximum total size for merge operations
 
-app = FastAPI(title="PDF to DOCX Converter", version="1.0.0")
+app = FastAPI(title="C4Converter - PDF Tools", version="2.0.0")
+
+
+# Helper function for PDF validation
+def validate_pdf_file(file: UploadFile) -> bytes:
+    """Validate PDF file type and size."""
+    if not file.filename or not file.filename.lower().endswith('.pdf'):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid file type. Please upload a PDF file."
+        )
+    return file
+
+async def read_and_validate_pdf(file: UploadFile, max_size: int = MAX_UPLOAD_BYTES) -> bytes:
+    """Read PDF content and validate size."""
+    content = await file.read()
+    if len(content) > max_size:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large. Maximum size is {max_size // (1024*1024)}MB."
+        )
+    return content
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -36,7 +64,9 @@ async def privacy_policy():
     """Serve the privacy policy page."""
     html_path = Path(__file__).parent / "templates" / "privacy-policy.html"
     with open(html_path, "r", encoding="utf-8") as f:
-        return HTMLResponse(content=f.read())
+       
+
+ return HTMLResponse(content=f.read())
 
 
 @app.get("/terms", response_class=HTMLResponse)
@@ -71,20 +101,16 @@ async def contact():
         return HTMLResponse(content=f.read())
 
 
-# Mount static files for favicon
-app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
-
-
 @app.get("/robots.txt")
 async def robots():
-    """Serve robots.txt for search engines."""
+    """Serve robots.txt for SEO."""
     robots_path = Path(__file__).parent.parent / "robots.txt"
     return FileResponse(robots_path, media_type="text/plain")
 
 
 @app.get("/sitemap.xml")
-async def sitemap():
-    """Serve sitemap.xml for search engines."""
+async def sitemap_xml():
+    """Serve sitemap.xml for SEO."""
     sitemap_path = Path(__file__).parent.parent / "sitemap.xml"
     return FileResponse(sitemap_path, media_type="application/xml")
 
@@ -151,19 +177,10 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
     """
     
     # Validate file type
-    if not file.filename or not file.filename.lower().endswith('.pdf'):
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid file type. Please upload a PDF file."
-        )
+    validate_pdf_file(file)
     
     # Read file content and validate size
-    content = await file.read()
-    if len(content) > MAX_UPLOAD_BYTES:
-        raise HTTPException(
-            status_code=413,
-            detail=f"File too large. Maximum size is {MAX_UPLOAD_MB}MB."
-        )
+    content = await read_and_validate_pdf(file)
     
     # Create temporary directory for conversion
     temp_dir = None
@@ -200,23 +217,22 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         if not os.path.exists(docx_path):
             raise HTTPException(
                 status_code=500,
-                detail="Conversion completed but output file not found."
+                detail="Conversion completed but output file was not created."
             )
         
         # Generate output filename
-        original_name = file.filename.rsplit('.', 1)[0]
+        original_name = file.filename.rsplit('.', 1)[0] if file.filename else "document"
         output_filename = f"{original_name}.docx"
         
-        # Return the converted file
+        # Return the file
         return FileResponse(
             path=docx_path,
             filename=output_filename,
-            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            background=None
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
     
     except HTTPException:
-        # Re-raise HTTP exceptions
+        # Re-raise HTTP exceptions as-is
         raise
     
     except Exception as e:
@@ -231,10 +247,302 @@ async def convert_pdf_to_docx(file: UploadFile = File(...)):
         pass
 
 
+@app.post("/merge")
+async def merge_pdfs(files: List[UploadFile] = File(...)):
+    """
+    Merge multiple PDF files into a single PDF.
+    
+    Process:
+    1. Validate all files are PDFs
+    2. Check file count and total size limits
+    3. Merge using PyPDF2
+    4. Return merged PDF
+    """
+    
+    # Validate file count
+    if len(files) < 2:
+        raise HTTPException(
+            status_code=400,
+            detail="Please upload at least 2 PDF files to merge."
+        )
+    
+    if len(files) > MAX_MERGE_FILES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Maximum {MAX_MERGE_FILES} files allowed for merge."
+        )
+    
+    # Validate and read all files
+    pdf_contents = []
+    total_size = 0
+    
+    for file in files:
+        validate_pdf_file(file)
+        content = await file.read()
+        total_size += len(content)
+        
+        if total_size > MAX_MERGE_TOTAL_MB * 1024 * 1024:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Total size exceeds {MAX_MERGE_TOTAL_MB}MB limit."
+            )
+        
+        pdf_contents.append(content)
+    
+    # Merge PDFs
+    temp_dir = None
+    try:
+        temp_dir = tempfile.mkdtemp()
+        merger = PdfWriter()
+        
+        # Add each PDF to merger
+        for i, content in enumerate(pdf_contents):
+            pdf_path = os.path.join(temp_dir, f"input_{i}.pdf")
+            with open(pdf_path, "wb") as f:
+                f.write(content)
+            
+            try:
+                reader = PdfReader(pdf_path)
+                for page in reader.pages:
+                    merger.add_page(page)
+            except Exception as e:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Error reading PDF file {i+1}: {str(e)}"
+                )
+        
+        # Write merged PDF
+        output_path = os.path.join(temp_dir, "merged.pdf")
+        with open(output_path, "wb") as output_file:
+            merger.write(output_file)
+        merger.close()
+        
+        # Return merged PDF
+        return FileResponse(
+            path=output_path,
+            filename="merged.pdf",
+            media_type="application/pdf"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Merge failed: {str(e)}"
+        )
+    finally:
+        pass
+
+
+@app.post("/split")
+async def split_pdf(
+    file: UploadFile = File(...),
+    pages: str = Form(...)
+):
+    """
+    Split PDF by extracting specific pages.
+    
+    Process:
+    1. Validate PDF file
+    2. Parse page range (e.g., "1-5,8,10-12")
+    3. Extract specified pages
+    4. Return ZIP with split PDFs
+    
+    Page format examples:
+    - "1-5" = pages 1 to 5
+    - "1,3,5" = pages 1, 3, and 5
+    - "1-5,8,10-12" = pages 1-5, 8, and 10-12
+    """
+    
+    # Validate file
+    validate_pdf_file(file)
+    content = await read_and_validate_pdf(file)
+    
+    # Parse page ranges
+    try:
+        page_numbers = parse_page_ranges(pages)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid page format: {str(e)}"
+        )
+    
+    # Process PDF
+    temp_dir = None
+    try:
+        temp_dir = tempfile.mkdtemp()
+        
+        # Save input PDF
+        input_path = os.path.join(temp_dir, "input.pdf")
+        with open(input_path, "wb") as f:
+            f.write(content)
+        
+        # Read PDF
+        reader = PdfReader(input_path)
+        total_pages = len(reader.pages)
+        
+        # Validate page numbers
+        invalid_pages = [p for p in page_numbers if p < 1 or p > total_pages]
+        if invalid_pages:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid page numbers: {invalid_pages}. PDF has {total_pages} pages."
+            )
+        
+        # Create ZIP with extracted pages
+        zip_path = os.path.join(temp_dir, "split_pages.zip")
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            for page_num in sorted(page_numbers):
+                writer = PdfWriter()
+                writer.add_page(reader.pages[page_num - 1])  # 0-indexed
+               
+                page_path = os.path.join(temp_dir, f"page_{page_num}.pdf")
+                with open(page_path, "wb") as page_file:
+                    writer.write(page_file)
+                
+                zf.write(page_path, f"page_{page_num}.pdf")
+        
+        # Return ZIP
+        return FileResponse(
+            path=zip_path,
+            filename="split_pages.zip",
+            media_type="application/zip"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Split failed: {str(e)}"
+        )
+    finally:
+        pass
+
+
+@app.post("/pdf-to-images")
+async def pdf_to_images(
+    file: UploadFile = File(...),
+    format: str = Form("png"),
+    dpi: int = Form(200)
+):
+    """
+    Convert PDF pages to images.
+    
+    Process:
+    1. Validate PDF file
+    2. Convert each page to image using pdf2image
+    3. Return ZIP with all images
+    
+    Parameters:
+    - format: 'png' or 'jpg' (default: png)
+    - dpi: Image resolution 72-300 (default: 200)
+    """
+    
+    # Validate parameters
+    if format.lower() not in ['png', 'jpg', 'jpeg']:
+        raise HTTPException(
+            status_code=400,
+            detail="Format must be 'png' or 'jpg'."
+        )
+    
+    if dpi < 72 or dpi > 300:
+        raise HTTPException(
+            status_code=400,
+            detail="DPI must be between 72 and 300."
+        )
+    
+    # Validate file
+    validate_pdf_file(file)
+    content = await read_and_validate_pdf(file)
+    
+    # Process PDF
+    temp_dir = None
+    try:
+        temp_dir = tempfile.mkdtemp()
+        
+        # Save input PDF
+        input_path = os.path.join(temp_dir, "input.pdf")
+        with open(input_path, "wb") as f:
+            f.write(content)
+        
+        # Convert PDF to images
+        try:
+            images = convert_from_path(input_path, dpi=dpi)
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"PDF to image conversion failed: {str(e)}"
+            )
+        
+        # Create ZIP with images
+        zip_path = os.path.join(temp_dir, "pdf_images.zip")
+        img_format = 'PNG' if format.lower() == 'png' else 'JPEG'
+        file_ext = 'png' if format.lower() == 'png' else 'jpg'
+        
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            for i, image in enumerate(images, start=1):
+                img_path = os.path.join(temp_dir, f"page_{i}.{file_ext}")
+                image.save(img_path, img_format)
+                zf.write(img_path, f"page_{i}.{file_ext}")
+        
+        # Return ZIP
+        return FileResponse(
+            path=zip_path,
+            filename=f"pdf_images.zip",
+            media_type="application/zip"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Image conversion failed: {str(e)}"
+        )
+    finally:
+        pass
+
+
+def parse_page_ranges(pages_str: str) -> List[int]:
+    """
+    Parse page range string into list of page numbers.
+    
+    Examples:
+    - "1-5" → [1, 2, 3, 4, 5]
+    - "1,3,5" → [1, 3, 5]
+    - "1-3,5,7-9" → [1, 2, 3, 5, 7, 8, 9]
+    """
+    page_numbers = set()
+    parts = pages_str.replace(' ', '').split(',')
+    
+    for part in parts:
+        if '-' in part:
+            # Range like "1-5"
+            try:
+                start, end = part.split('-')
+                start_num = int(start)
+                end_num = int(end)
+                if start_num > end_num:
+                    raise ValueError(f"Invalid range: {part}")
+                page_numbers.update(range(start_num, end_num + 1))
+            except ValueError:
+                raise ValueError(f"Invalid range format: {part}")
+        else:
+            # Single page like "3"
+            try:
+                page_numbers.add(int(part))
+            except ValueError:
+                raise ValueError(f"Invalid page number: {part}")
+    
+    return list(page_numbers)
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint for monitoring."""
-    return {"status": "ok", "service": "pdf2docx"}
+    return {"status": "ok", "service": "c4converter"}
 
 
 if __name__ == "__main__":
