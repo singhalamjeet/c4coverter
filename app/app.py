@@ -101,25 +101,40 @@ async def sitemap_html(request: Request):
         return HTMLResponse(content="<h1>Sitemap HTML Page (Coming Soon)</h1><p>This page will list all available content.</p>")
 
 # SEO Content Pages
-@app.get("/how-to-convert-pdf-to-word")
-async def how_to_convert(request: Request):
-    return templates.TemplateResponse("how-to-convert-pdf-to-word.html", {"request": request})
+@app.get("/how-to-convert-pdf-to-word", response_class=HTMLResponse)
+async def how_to_convert():
+    """Serve the how-to tutorial page."""
+    html_path = Path(__file__).parent / "templates" / "how-to-convert-pdf-to-word.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
-@app.get("/is-pdf-conversion-safe")
-async def is_safe(request: Request):
-    return templates.TemplateResponse("is-pdf-conversion-safe.html", {"request": request})
+@app.get("/is-pdf-conversion-safe", response_class=HTMLResponse)
+async def is_safe():
+    """Serve the safety guide page."""
+    html_path = Path(__file__).parent / "templates" / "is-pdf-conversion-safe.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
-@app.get("/pdf-vs-docx")
-async def pdf_vs_docx(request: Request):
-    return templates.TemplateResponse("pdf-vs-docx.html", {"request": request})
+@app.get("/pdf-vs-docx", response_class=HTMLResponse)
+async def pdf_vs_docx():
+    """Serve the format comparison page."""
+    html_path = Path(__file__).parent / "templates" / "pdf-vs-docx.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
-@app.get("/free-pdf-to-docx")
-async def free_converter(request: Request):
-    return templates.TemplateResponse("free-pdf-to-docx.html", {"request": request})
+@app.get("/free-pdf-to-docx", response_class=HTMLResponse)
+async def free_converter():
+    """Serve the free converter page."""
+    html_path = Path(__file__).parent / "templates" / "free-pdf-to-docx.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
-@app.get("/pdf-to-docx-converter-online")
-async def online_converter(request: Request):
-    return templates.TemplateResponse("pdf-to-docx-converter-online.html", {"request": request})
+@app.get("/pdf-to-docx-converter-online", response_class=HTMLResponse)
+async def online_converter():
+    """Serve the online converter page."""
+    html_path = Path(__file__).parent / "templates" / "pdf-to-docx-converter-online.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
 
 
 @app.post("/convert")
