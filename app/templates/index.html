@@ -598,7 +598,7 @@
             formData.append('file', convertFile);
 
             convertButton.disabled = true;
-            showStatus('Converting...', 'info');
+            showStatus('⏳ Processing your PDF...', 'info');
 
             try {
                 const response = await fetch('/convert', {
@@ -613,18 +613,30 @@
 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = convertFile.name.replace('.pdf', '.docx');
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
+                const filename = convertFile.name.replace('.pdf', '.docx');
 
-                showStatus('✅ Conversion successful! File downloaded.', 'success');
-                convertFile = null;
-                convertFileInput.value = '';
-                convertButton.disabled = true;
+                // Show download button instead of auto-download
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'button-primary';
+                downloadBtn.textContent = '📥 Download DOCX File';
+                downloadBtn.style.marginTop = '15px';
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                };
+
+                const statusEl = document.getElementById('statusMessage');
+                statusEl.innerHTML = '✅ Conversion successful!';
+                statusEl.className = 'status-message success';
+                statusEl.style.display = 'block';
+                statusEl.appendChild(downloadBtn);
+
+                convertButton.disabled = false;
             } catch (error) {
                 showStatus(`❌ Error: ${error.message}`, 'error');
                 convertButton.disabled = false;
@@ -699,7 +711,7 @@
             mergeFiles.forEach(file => formData.append('files', file));
 
             mergeButton.disabled = true;
-            showStatus('Merging PDFs...', 'info');
+            showStatus('⏳ Merging your PDFs...', 'info');
 
             try {
                 const response = await fetch('/merge', {
@@ -714,17 +726,31 @@
 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'merged.pdf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
 
-                showStatus('✅ PDFs merged successfully!', 'success');
+                // Show download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'button-primary';
+                downloadBtn.textContent = '📥 Download Merged PDF';
+                downloadBtn.style.marginTop = '15px';
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'merged.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                };
+
+                const statusEl = document.getElementById('statusMessage');
+                statusEl.innerHTML = '✅ PDFs merged successfully!';
+                statusEl.className = 'status-message success';
+                statusEl.style.display = 'block';
+                statusEl.appendChild(downloadBtn);
+
                 mergeFiles = [];
                 renderMergeFileList();
+                mergeButton.disabled = false;
             } catch (error) {
                 showStatus(`❌ Error: ${error.message}`, 'error');
                 mergeButton.disabled = false;
@@ -778,7 +804,7 @@
             formData.append('pages', pageRangesInput.value.trim());
 
             splitButton.disabled = true;
-            showStatus('Splitting PDF...', 'info');
+            showStatus('⏳ Splitting your PDF...', 'info');
 
             try {
                 const response = await fetch('/split', {
@@ -793,15 +819,28 @@
 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'split_pages.zip';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
 
-                showStatus('✅ PDF split successfully! ZIP file downloaded.', 'success');
+                // Show download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'button-primary';
+                downloadBtn.textContent = '📥 Download Split Pages (ZIP)';
+                downloadBtn.style.marginTop = '15px';
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'split_pages.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                };
+
+                const statusEl = document.getElementById('statusMessage');
+                statusEl.innerHTML = '✅ PDF split successfully!';
+                statusEl.className = 'status-message success';
+                statusEl.style.display = 'block';
+                statusEl.appendChild(downloadBtn);
+
                 splitFile = null;
                 splitFileInput.value = '';
                 pageRangesInput.value = '';
@@ -854,7 +893,7 @@
             formData.append('dpi', document.getElementById('imageDPI').value);
 
             imagesButton.disabled = true;
-            showStatus('Converting PDF to images...', 'info');
+            showStatus('⏳ Converting PDF to images...', 'info');
 
             try {
                 const response = await fetch('/pdf-to-images', {
@@ -869,15 +908,28 @@
 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'pdf_images.zip';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
 
-                showStatus('✅ PDF converted to images successfully!', 'success');
+                // Show download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'button-primary';
+                downloadBtn.textContent = '📥 Download Images (ZIP)';
+                downloadBtn.style.marginTop = '15px';
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'pdf_images.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                };
+
+                const statusEl = document.getElementById('statusMessage');
+                statusEl.innerHTML = '✅ PDF converted to images successfully!';
+                statusEl.className = 'status-message success';
+                statusEl.style.display = 'block';
+                statusEl.appendChild(downloadBtn);
+
                 imagesFile = null;
                 imagesFileInput.value = '';
                 imagesButton.disabled = true;
