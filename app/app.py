@@ -21,8 +21,9 @@ MAX_MERGE_TOTAL_MB = 100  # Maximum total size for merge operations
 
 app = FastAPI(title="C4Converter - PDF Tools", version="2.0.0")
 
-# Mount static files for PWA assets
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Mount static files for PWA assets (using absolute path from project root)
+static_dir = Path(__file__).parent.parent / "static"
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 # Helper function for PDF validation
