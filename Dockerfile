@@ -25,6 +25,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY app/ ./app/
 
+# Copy PWA static files
+COPY static/ ./static/
+
 # Copy SEO files
 COPY robots.txt sitemap.xml ./
 
