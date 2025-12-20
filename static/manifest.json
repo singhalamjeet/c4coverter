@@ -1,0 +1,79 @@
+{
+    "name": "C4Converter - Free PDF Tools",
+    "short_name": "C4Converter",
+    "description": "Free online PDF tools: Convert PDF to DOCX, Merge PDFs, Split PDFs, Convert PDF to Images",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/static/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/static/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "shortcuts": [
+        {
+            "name": "PDF to DOCX",
+            "short_name": "Convert",
+            "description": "Convert PDF to Word document",
+            "url": "/?tool=convert",
+            "icons": [
+                {
+                    "src": "/static/icons/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Merge PDFs",
+            "short_name": "Merge",
+            "description": "Combine multiple PDFs",
+            "url": "/?tool=merge",
+            "icons": [
+                {
+                    "src": "/static/icons/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Split PDF",
+            "short_name": "Split",
+            "description": "Extract pages from PDF",
+            "url": "/?tool=split",
+            "icons": [
+                {
+                    "src": "/static/icons/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "PDF to Images",
+            "short_name": "Images",
+            "description": "Convert PDF to PNG/JPG",
+            "url": "/?tool=images",
+            "icons": [
+                {
+                    "src": "/static/icons/icon-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}
