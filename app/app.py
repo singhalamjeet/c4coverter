@@ -64,9 +64,7 @@ async def privacy_policy():
     """Serve the privacy policy page."""
     html_path = Path(__file__).parent / "templates" / "privacy-policy.html"
     with open(html_path, "r", encoding="utf-8") as f:
-       
-
- return HTMLResponse(content=f.read())
+        return HTMLResponse(content=f.read())
 
 
 @app.get("/terms", response_class=HTMLResponse)
