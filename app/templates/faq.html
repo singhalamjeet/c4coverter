@@ -4,52 +4,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - C4Converter PDF to DOCX Questions</title>
+    <title>FAQ - Free PDF Tools Questions | C4Converter</title>
     <meta name="description"
-        content="Frequently asked questions about C4Converter. Learn about PDF to DOCX conversion, security, free usage, and more. C4 is a brand name, not a file format.">
+        content="Frequently asked questions about C4Converter's free PDF tools: Convert PDF to Word, Merge PDFs, Split PDFs, PDF to Images. Learn about security, features, and usage.">
+    <meta name="keywords"
+        content="pdf converter faq, merge pdf questions, split pdf help, pdf to images guide, free pdf tools">
     <link rel="canonical" href="https://c4converter.com/faq">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+
+    <!-- Schema Markup - FAQ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Is a C4 file a real file format?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. C4 is not a file format. C4Converter is simply our brand name for a PDF to DOCX conversion tool. There is no such thing as a C4 file."
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is C4Converter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "C4Converter is a free online PDF toolkit offering four tools: PDF to DOCX converter, PDF merger, PDF splitter, and PDF to images converter. C4 is our brand name, not a file format."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is C4Converter really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely free with unlimited conversions. No hidden fees, no subscription, no registration required. All four PDF tools are available for free use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert PDF to Word using C4Converter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Click the 'PDF to DOCX' tab, upload your PDF file (max 50MB), click 'Convert to DOCX', and download the converted Word document when ready."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I merge multiple PDF files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Go to the 'Merge PDFs' tab, upload up to 10 PDF files (100MB total max), arrange them in your preferred order, click 'Merge PDFs', and download the combined file."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I split a PDF file?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Select the 'Split PDF' tab, upload your PDF, enter page ranges like '1-5,8,10-12', click 'Split PDF', and download the ZIP file containing extracted pages."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert PDF to images?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Click 'PDF to Images' tab, upload your PDF, choose format (PNG or JPG) and DPI quality (150-300), click convert, and download the ZIP file with all page images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data safe with C4Converter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All files are transferred via HTTPS encryption, processed on secure servers, and automatically permanently deleted immediately after processing. We never store, view, or share your documents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum file size for uploads?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Single PDF files: 50MB maximum. For merging: up to 10 files with 100MB total combined size. These limits ensure fast, reliable processing."
+          }
         }
-      }, {
-        "@type": "Question",
-        "name": "What does C4Converter convert?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "C4Converter converts PDF (Portable Document Format) files into editable Microsoft Word DOCX documents. That's it - PDF to DOCX only."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Why is it called C4Converter?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "C4 is our brand name. The '4' suggests converting 'for' you, making it easy to remember. It's not related to any file format."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Does C4Converter convert PDF to Word?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. C4Converter converts PDF files to editable Microsoft Word DOCX format. This allows you to edit, modify, and reformat the content in Word."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Is C4Converter safe for confidential documents?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. All files are uploaded securely via HTTPS, processed on secure servers, and automatically permanently deleted immediately after conversion. We do not store, view, or share your documents."
-        }
-      }]
+      ]
     }
     </script>
+
     <style>
         * {
             margin: 0;
@@ -58,48 +96,67 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
+            max-width: 900px;
+            margin: 0 auto;
             background: white;
             border-radius: 20px;
-            padding: 50px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 40px;
         }
 
         h1 {
-            color: #333;
-            margin-bottom: 30px;
+            color: #667eea;
             font-size: 36px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #764ba2;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f2ff;
         }
 
         .faq-item {
             margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s;
         }
 
-        .faq-item:last-child {
-            border-bottom: none;
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
         }
 
         .question {
-            color: #4c51bf;
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        p {
             color: #333;
-            line-height: 1.8;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .answer {
@@ -107,134 +164,296 @@
             line-height: 1.8;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #4c51bf;
-            text-decoration: none;
+        .answer strong {
+            color: #667eea;
         }
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .footer-section {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #e0e0e0;
+        .back-home {
             text-align: center;
-            color: #555;
-            font-size: 13px;
+            margin-top: 40px;
         }
 
-        .footer-section a {
-            color: #4c51bf;
-            text-decoration: none;
-            margin: 5px 10px;
-            padding: 12px;
+        .back-home a {
             display: inline-block;
-            border-radius: 6px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s;
         }
 
-        .footer-section a:hover {
-            text-decoration: underline;
-            background-color: #f0f2ff;
+        .back-home a:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .question {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <main class="container">
-        <a href="/" class="back-link">← Back to Converter</a>
+    <div class="container">
+        <h1>📚 Frequently Asked Questions</h1>
+        <p class="subtitle">Everything you need to know about C4Converter's free PDF tools</p>
 
-        <h1>Frequently Asked Questions</h1>
+        <!-- General Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">General Questions</h2>
 
-        <div class="faq-item">
-            <div class="question">Is a C4 file a real file format?</div>
-            <div class="answer">No. <strong>C4 is not a file format.</strong> "C4Converter" is simply our brand name for
-                a PDF to DOCX conversion tool. There is no such thing as a "C4 file." We chose the name C4 because it's
-                memorable and suggests converting "for" you.</div>
-        </div>
+            <div class="faq-item">
+                <div class="question">Q: What is C4Converter?</div>
+                <div class="answer">C4Converter is a <strong>free online PDF toolkit</strong> offering four essential
+                    tools: PDF to DOCX converter, PDF merger, PDF splitter, and PDF to images converter. The name "C4"
+                    is our brand identity—it's not a file format. Our tools are designed for students, professionals,
+                    and office workers who need quick, secure PDF processing without installing software.</div>
+            </div>
 
-        <div class="faq-item">
-            <div class="question">What does C4Converter convert?</div>
-            <div class="answer">C4Converter converts <strong>PDF (Portable Document Format)</strong> files into editable
-                <strong>Microsoft Word DOCX</strong> documents. That's it - PDF to DOCX only. This allows you to edit,
-                modify, and reformat content in Word.</div>
-        </div>
+            <div class="faq-item">
+                <div class="question">Q: Is C4Converter really free?</div>
+                <div class="answer">Yes, <strong>completely free</strong> with unlimited conversions. There are no
+                    hidden fees, no subscription plans, and no registration required. All four PDF tools—convert, merge,
+                    split, and images—are available for unlimited free use.</div>
+            </div>
 
-        <div class="faq-item">
-            <div class="question">Why is it called C4Converter?</div>
-            <div class="answer">"C4" is our brand name. The "4" suggests converting "for" you, making it easy to
-                remember. It's not related to any file format. We're a PDF to Word conversion tool with a catchy name.
+            <div class="faq-item">
+                <div class="question">Q: Do I need to create an account?</div>
+                <div class="answer">No account required! Simply visit the website, select your tool, upload your file,
+                    and process. No email, no signup, no hassle.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: What browsers are supported?</div>
+                <div class="answer">C4Converter works on all modern browsers including Chrome, Firefox, Safari, Edge,
+                    and Opera on Windows, Mac, Linux, iOS, and Android devices.</div>
             </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Does C4Converter convert PDF to Word?</div>
-            <div class="answer">Yes! C4Converter converts PDF files to editable Microsoft Word DOCX format. Upload your
-                PDF, and download an editable Word document.</div>
+        <!-- PDF to DOCX Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">PDF to DOCX Converter</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I convert PDF to Word?</div>
+                <div class="answer">
+                    <strong>Step 1:</strong> Click the "PDF to DOCX" tab<br>
+                    <strong>Step 2:</strong> Upload your PDF file (max 50MB)<br>
+                    <strong>Step 3:</strong> Click "Convert to DOCX"<br>
+                    <strong>Step 4:</strong> Click the download button when processing completes
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Will my PDF formatting be preserved?</div>
+                <div class="answer">C4Converter preserves <strong>text, images, tables, and formatting</strong> as
+                    accurately as possible. Complex layouts with custom fonts or advanced formatting may require minor
+                    adjustments in Word, but most documents convert perfectly.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: What's the maximum PDF file size for conversion?</div>
+                <div class="answer">The maximum file size is <strong>50MB per PDF</strong>. This limit ensures fast
+                    processing while handling most typical documents.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How long does PDF to DOCX conversion take?</div>
+                <div class="answer">Most conversions complete in <strong>10-30 seconds</strong> depending on file size
+                    and complexity. Larger files with many pages or images may take up to 2 minutes.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Is C4Converter safe for confidential documents?</div>
-            <div class="answer">Yes. All files are uploaded securely via encrypted HTTPS connections, processed on
-                secure servers, and <strong>automatically permanently deleted</strong> immediately after conversion. We
-                do not store, view, or share your documents. No file history is maintained.</div>
+        <!-- PDF Merger Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">PDF Merger</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I merge multiple PDF files?</div>
+                <div class="answer">
+                    <strong>Step 1:</strong> Click the "Merge PDFs" tab<br>
+                    <strong>Step 2:</strong> Upload up to 10 PDF files<br>
+                    <strong>Step 3:</strong> Arrange files in your preferred order (drag if needed)<br>
+                    <strong>Step 4:</strong> Click "Merge PDFs"<br>
+                    <strong>Step 5:</strong> Download the combined PDF
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How many PDFs can I merge at once?</div>
+                <div class="answer">You can merge up to <strong>10 PDF files</strong> in a single operation, with a
+                    combined total size of <strong>100MB maximum</strong>.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Can I choose the order of merged files?</div>
+                <div class="answer">Yes! Files are merged in the order you upload them. Most browsers allow
+                    drag-and-drop reordering before finalizing the merge.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Will the merged PDF be compressed?</div>
+                <div class="answer">No. C4Converter maintains the <strong>original quality</strong> of all PDFs without
+                    compression. The merged file size equals the sum of input files.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Do I need to install software to convert PDF to DOCX?</div>
-            <div class="answer">No. C4Converter is a fully browser-based tool that works on Windows, Mac, Linux, iOS,
-                and Android devices without requiring any downloads or plugins. Just open your browser and start
-                converting.</div>
+        <!-- PDF Splitter Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">PDF Splitter</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I split a PDF file?</div>
+                <div class="answer">
+                    <strong>Step 1:</strong> Click the "Split PDF" tab<br>
+                    <strong>Step 2:</strong> Upload your PDF file<br>
+                    <strong>Step 3:</strong> Enter page ranges (e.g., "1-5,8,10-12")<br>
+                    <strong>Step 4:</strong> Click "Split PDF"<br>
+                    <strong>Step 5:</strong> Download the ZIP file with extracted pages
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I specify which pages to extract?</div>
+                <div class="answer">
+                    Use these formats:<br>
+                    • <strong>"1-5"</strong> = pages 1 through 5<br>
+                    • <strong>"1,3,5"</strong> = only pages 1, 3, and 5<br>
+                    • <strong>"1-5,8,10-12"</strong> = pages 1-5, page 8, and pages 10-12<br>
+                    Separate multiple ranges with commas.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Is there a limit on page extraction?</div>
+                <div class="answer">No limit on the number of pages you can extract! As long as your PDF is under 50MB,
+                    you can extract any pages you need.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: How are split pages delivered?</div>
+                <div class="answer">Split pages are delivered as individual PDF files packaged in a <strong>ZIP
+                        archive</strong>. Each page is named "page_X.pdf" where X is the original page number.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Is C4Converter free to use?</div>
-            <div class="answer">Yes. C4Converter is 100% free with no hidden fees, no credit card requirements, and no
-                daily limits on the number of conversions you can perform.</div>
+        <!-- PDF to Images Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">PDF to Images</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: How do I convert PDF to images?</div>
+                <div class="answer">
+                    <strong>Step 1:</strong> Click the "PDF to Images" tab<br>
+                    <strong>Step 2:</strong> Upload your PDF file<br>
+                    <strong>Step 3:</strong> Choose format (PNG or JPG) and DPI quality<br>
+                    <strong>Step 4:</strong> Click "Convert to Images"<br>
+                    <strong>Step 5:</strong> Download the ZIP file with all images
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: What image formats are supported?</div>
+                <div class="answer"><strong>PNG and JPG</strong> formats are supported. PNG offers higher quality and
+                    transparency support, while JPG provides smaller file sizes. Choose based on your needs.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: What is DPI and what should I choose?</div>
+                <div class="answer">
+                    DPI (dots per inch) determines image quality:<br>
+                    • <strong>150 DPI:</strong> Good for web use, smaller files<br>
+                    • <strong>200 DPI:</strong> Balanced quality (recommended)<br>
+                    • <strong>300 DPI:</strong> Print quality, larger files<br>
+                    Higher DPI = better quality but larger file sizes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Are all PDF pages converted to images?</div>
+                <div class="answer">Yes! Every page in your PDF is converted to a separate image file. A 10-page PDF
+                    creates 10 image files, all packaged in a ZIP archive.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">How long does PDF to DOCX conversion take?</div>
-            <div class="answer">Most conversions complete in just a few seconds. Larger files (up to 50MB) may take
-                slightly longer depending on document complexity and your internet connection speed.</div>
+        <!-- Security & Privacy Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">Security & Privacy</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: Is my data safe with C4Converter?</div>
+                <div class="answer">
+                    <strong>Absolutely.</strong> Your security is our priority:<br>
+                    • <strong>HTTPS encryption</strong> for all file transfers<br>
+                    • <strong>Secure server processing</strong> in isolated environment<br>
+                    • <strong>Automatic deletion</strong> immediately after processing<br>
+                    • <strong>No file storage</strong> - we never save your files<br>
+                    • <strong>No tracking</strong> - we don't collect personal data
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Can I use C4Converter for confidential documents?</div>
+                <div class="answer">Yes. All files are automatically <strong>permanently deleted</strong> from our
+                    servers immediately after processing. We do not store, view, analyze, or share your documents with
+                    anyone.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Do you use my PDFs to train AI models?</div>
+                <div class="answer">No. We have a strict <strong>no data retention policy</strong>. Your files are
+                    processed and deleted—never stored, analyzed, or used for any purpose beyond your requested
+                    conversion.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Can I convert password-protected PDFs?</div>
-            <div class="answer">Currently, password-protected PDFs cannot be converted. You'll need to remove the
-                password protection first using PDF software before uploading to C4Converter.</div>
+        <!-- Technical Questions -->
+        <div class="faq-section">
+            <h2 class="section-title">Technical Questions</h2>
+
+            <div class="faq-item">
+                <div class="question">Q: Can I use C4Converter on my phone?</div>
+                <div class="answer">Yes! C4Converter is fully <strong>mobile-responsive</strong> and works perfectly on
+                    smartphones and tablets. You can also install it as a Progressive Web App (PWA) for an app-like
+                    experience.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Do I need to install any software?</div>
+                <div class="answer">No installation required! C4Converter is a <strong>100% online tool</strong> that
+                    works directly in your web browser. No downloads, no plugins, no hassle.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: Why is there a file size limit?</div>
+                <div class="answer">File size limits (50MB per file, 100MB for merging) ensure fast, reliable processing
+                    for all users. These limits accommodate 99% of typical documents while preventing server overload.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q: What happens if my conversion fails?</div>
+                <div class="answer">If processing fails, you'll see an error message explaining the issue (usually file
+                    size, format, or corruption). Try reducing file size, checking the PDF integrity, or contact us if
+                    problems persist.</div>
+            </div>
         </div>
 
-        <div class="faq-item">
-            <div class="question">Will the conversion preserve my document formatting?</div>
-            <div class="answer">Our conversion process preserves text, images, tables, and basic formatting. However,
-                PDF to DOCX conversion has inherent limitations - complex layouts may require minor manual adjustments
-                in Word after conversion.</div>
+        <div class="back-home">
+            <a href="/">← Back to Tools</a>
         </div>
-
-        <div class="faq-item">
-            <div class="question">What is the maximum file size I can convert?</div>
-            <div class="answer">The current limit is 50MB per file. This accommodates most PDF documents while ensuring
-                fast processing times for all users.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="question">How long are files kept on your servers?</div>
-            <div class="answer">Files are kept only during the brief processing period (typically 5-10 seconds) and are
-                automatically deleted immediately after you download the converted file, or within 60 seconds maximum if
-                not downloaded.</div>
-        </div>
-
-        <div class="footer-section">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/how-it-works">How It Works</a>
-            <p style="margin-top: 15px;">© 2024 C4Converter</p>
-        </div>
-    </main>
+    </div>
 </body>
 
 </html>
