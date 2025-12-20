@@ -88,6 +88,38 @@ async def sitemap():
     sitemap_path = Path(__file__).parent.parent / "sitemap.xml"
     return FileResponse(sitemap_path, media_type="application/xml")
 
+@app.get("/sitemap")
+async def sitemap_html(request: Request):
+    # For now, serve a simple HTML response or redirect
+    # If a templating engine is set up, this would use templates.TemplateResponse
+    html_path = Path(__file__).parent / "templates" / "sitemap.html"
+    if html_path.exists():
+        with open(html_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    else:
+        # Fallback if sitemap.html doesn't exist yet
+        return HTMLResponse(content="<h1>Sitemap HTML Page (Coming Soon)</h1><p>This page will list all available content.</p>")
+
+# SEO Content Pages
+@app.get("/how-to-convert-pdf-to-word")
+async def how_to_convert(request: Request):
+    return templates.TemplateResponse("how-to-convert-pdf-to-word.html", {"request": request})
+
+@app.get("/is-pdf-conversion-safe")
+async def is_safe(request: Request):
+    return templates.TemplateResponse("is-pdf-conversion-safe.html", {"request": request})
+
+@app.get("/pdf-vs-docx")
+async def pdf_vs_docx(request: Request):
+    return templates.TemplateResponse("pdf-vs-docx.html", {"request": request})
+
+@app.get("/free-pdf-to-docx")
+async def free_converter(request: Request):
+    return templates.TemplateResponse("free-pdf-to-docx.html", {"request": request})
+
+@app.get("/pdf-to-docx-converter-online")
+async def online_converter(request: Request):
+    return templates.TemplateResponse("pdf-to-docx-converter-online.html", {"request": request})
 
 
 @app.post("/convert")
