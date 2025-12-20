@@ -949,40 +949,9 @@
             }
         });
 
-        // ========== PWA Install Prompt ==========
-        let deferredPrompt;
-        const installButton = document.createElement('button');
-        installButton.textContent = '📱 Install App';
-        installButton.className = 'button-primary';
-        installButton.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: none;';
-        document.body.appendChild(installButton);
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installButton.style.display = 'block';
-        });
-
-        installButton.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-
-            if (outcome === 'accepted') {
-                console.log('PWA installed');
-            }
-
-            deferredPrompt = null;
-            installButton.style.display = 'none';
-        });
-
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA was installed');
-            installButton.style.display = 'none';
-        });
-
-        // Register Service Worker
+        // ========== PWA Service Worker Registration ==========
+        // Register Service Worker for PWA support
+        // Users can install via browser menu (Chrome: ⋮ → Install app)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/static/sw.js')
