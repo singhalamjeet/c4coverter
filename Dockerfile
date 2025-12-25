@@ -1,5 +1,5 @@
-# Use Python 3.11 slim as base image
-FROM python:3.11-slim
+# Use Python 3.11 slim bookworm as base image (stable)
+FROM python:3.11-slim-bookworm
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
