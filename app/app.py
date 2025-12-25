@@ -95,6 +95,14 @@ async def faq():
         return HTMLResponse(content=f.read())
 
 
+@app.get("/smallpdf-alternative", response_class=HTMLResponse)
+async def smallpdf_alternative():
+    """Serve the Smallpdf alternative comparison page."""
+    html_path = Path(__file__).parent / "templates" / "smallpdf-alternative.html"
+    with open(html_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
 @app.get("/contact", response_class=HTMLResponse)
 async def contact():
     """Serve the contact page."""
